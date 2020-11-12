@@ -1,25 +1,34 @@
 import dotenv from 'dotenv';
 dotenv.config()
 
-import mqtt from 'mqtt';
+import express from 'express';
+import path from 'path';
+import http from 'http';
+import routes from './routes';
+import { engine  } from 'express-edge';
 
-const client = mqtt.connect(process.env.URL_MQTT, {
-    clientId:process.env.ID_CLIENT_MQTT,
-    username:process.env.USER_MQTT,
-    password:process.env.PASSWORD_MQTT,
-    clean:true
+/**
+ * Variaveis gerais
+ */
+const app = express();
+const server = http.createServer(app);
+
+/**
+ * Configurações do servidor
+ */
+// app.use(engine);
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.set('views', path.join(__dirname, 'views'));
+app.set('views engine', 'ejs');
+app.use(express.json());
+app.use(routes);
+app.disable('etag');
+
+/**
+ * Inicialização do servidor
+ */
+server.listen(process.env.PORT || 3000, () => {
+	console.log(
+		`Server iniciado em: ${process.env.APP_URL}`
+	);
 });
- 
-client.on('connect', function () {
-  client.subscribe('presence', function (err) {
-    if (!err) {
-      client.publish('presence', 'Hello mqtt')
-    }
-  })
-})
- 
-client.on('message', function (topic, message) {
-  // message is Buffer
-  console.log(message.toString())
-  client.end()
-})
