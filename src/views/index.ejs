@@ -28,9 +28,9 @@
 
     <!-- template de novo usuário -->
     <script id="user-template" type="text/x-handlebars-template">
-        <div class="card {{classStatus}}" id="{{idClient}}">
+        <div class="card {{classStatus}} {{checked}}" id="{{idClient}}">
             <label class="switch">
-                <input type="checkbox" name="expanded">
+                <input type="checkbox" name="expanded" value="{{idClient}}" {{checked}}>
                 <span class="slider round"></span>
             </label>
             <div class="additional">

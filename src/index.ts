@@ -5,7 +5,6 @@ import express from 'express';
 import path from 'path';
 import http from 'http';
 import routes from './routes';
-import { engine  } from 'express-edge';
 
 /**
  * Variaveis gerais

@@ -12,8 +12,8 @@ const config = {
  */
 function onConnect() {
     console.log("onConnect");
-    client.subscribe("mqtt_proj/#");
-    onSendMessage(`${config.clientId}-1`, "mqtt_proj/connected");
+    client.subscribe(TOPIC_JOKER);
+    onSendMessage(`${config.clientId}-1`, TOPIC_CONNECTION_CLIENT);
 }
 
 /**
